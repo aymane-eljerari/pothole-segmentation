@@ -8,7 +8,7 @@ from torch.utils.data import Dataset
 from torchvision import transforms
 from transformers import SegformerFeatureExtractor
 
-
+# Link to dataset: https://sites.google.com/view/pothole-600/dataset
 class SegDataset(Dataset):
     '''Pothole Segmentation Dataset dataset.'''
 
