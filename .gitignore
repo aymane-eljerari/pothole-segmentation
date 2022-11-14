@@ -1,4 +1,6 @@
-data/*/
+*.png
+*.jpg
+*.jpeg
 venv
 .vscode/
 makefile
