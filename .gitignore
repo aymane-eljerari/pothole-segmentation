@@ -2,7 +2,7 @@
 *.jpg
 *.jpeg
 *.pt
-
+lightning_logs/
 venv
 .vscode/
 makefile
