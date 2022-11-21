@@ -21,8 +21,15 @@ class SegmentationDataset(Dataset):
 
         if (raw_data_path == None) and (data_path != None) and (label_path != None):
             self.data_augment   = torch.load(data_path)
-            self.label_augment  = torch.load(label_path) 
-            
+            self.label_augment  = torch.load(label_path)
+            # Get size of dataset
+            data_augment_num    = os.path.basename(os.path.dirname(data_path))[-2:]
+            label_augment_num   = os.path.basename(os.path.dirname(label_path))[-2:]
+
+            assert data_augment_num == label_augment_num
+
+            self.length = 600*int(data_augment_num)
+
         else:
             self.angles             = [-75, -60, -45, -30, -15, 15, 30, 45, 60, 75]
             self.augment_num        = len(self.angles)+1
@@ -34,8 +41,8 @@ class SegmentationDataset(Dataset):
             self.data_path          = os.path.join(self.raw_path, 'rgb')
             self.label_path         = os.path.join(self.raw_path, 'label')
 
-            self.data               = torch.zeros((600, 3, 400, 400), dtype=torch.int8)
-            self.label              = torch.zeros((600, 1, 400, 400), dtype=torch.int8)
+            self.data               = torch.zeros((600, 3, 384, 384), dtype=torch.int8)
+            self.label              = torch.zeros((600, 1, 384, 384), dtype=torch.int8)
 
             self.create_directories()
             self.generate_data()
@@ -58,12 +65,12 @@ class SegmentationDataset(Dataset):
             img             = Image.open(os.path.join(self.data_path, str(i+1) + '.png'))
             label           = Image.open(os.path.join(self.label_path, str(i+601) + '.png')).convert('L')
 
-            transform       = transforms.Compose([transforms.PILToTensor()])
+            transform       = transforms.Compose([transforms.PILToTensor(), transforms.Resize(384)])
             img_tensor      = transform(img).detach().clone().squeeze_()
             label_tensor    = transform(label).detach().clone().squeeze_()
 
             self.data[i]    = img_tensor
-            self.label[i]   = label_tensor
+            self.label[i]   = label_tensor/255
 
         del img, label, img_tensor, label_tensor
         
@@ -79,8 +86,8 @@ class SegmentationDataset(Dataset):
         self.concatenate_data()
 
     def concatenate_data(self):
-        self.data_augment   = torch.empty((self.length, 3, 400, 400), dtype=torch.int8)
-        self.label_augment  = torch.empty((self.length, 1, 400, 400), dtype=torch.int8)
+        self.data_augment   = torch.empty((self.length, 3, 384, 384), dtype=torch.int8)
+        self.label_augment  = torch.empty((self.length, 1, 384, 384), dtype=torch.int8)
 
         for i, filename in enumerate(os.listdir(self.store_path), start=1):
             f = os.path.join(self.store_path, filename)
@@ -95,7 +102,7 @@ class SegmentationDataset(Dataset):
             Args:
                     image       (Tensor):   input image as tensor
         '''
-        images = torch.empty(size=(len(self.angles), TF.get_image_num_channels(image), 400, 400))
+        images = torch.empty(size=(len(self.angles), TF.get_image_num_channels(image), 384, 384))
         count = 0
         for angle in self.angles:
             img = TF.rotate(image, angle)
