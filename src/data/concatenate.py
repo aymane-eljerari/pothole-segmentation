@@ -7,14 +7,14 @@ def concatenate_data(path):
     (String)        path: local data directort
     '''
     
-    data_path = "data/segmentation/raw"
+    data_path = '/home/aymane/School/pothole-localization/data/segmentation/raw'
     folders = ['training', 'testing', 'validation']
     subfolders = ['rgb/', 'label/']
     count = 0
 
     # Check if directory exists
     if not os.path.exists(data_path):
-        os.mkdir(data_path)
+        os.makedirs(data_path)
 
     # Create sub directories
     if not next(os.scandir(data_path), None):
