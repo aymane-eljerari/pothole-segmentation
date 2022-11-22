@@ -20,7 +20,7 @@ pip install -r requirements.txt
 
 Model trained on an augmented dataset containing 6600 images using a Feature Pyramid Network. This model was able to achive an IOU of 0.86
 
-![Image1]('./images/output1.png)
-![Image2]('./images/output2.png)
-![Image3]('./images/output3.png)
-![Image4]('./images/output4.png)
+![Image1](./images/output1.png)
+![Image2](./images/output2.png)
+![Image3](./images/output3.png)
+![Image4](./images/output4.png)
