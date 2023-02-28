@@ -1,5 +1,5 @@
-# pothole-localization
-Training a computer vision task to localize potholes in images.
+# pothole-segmentation
+Training a computer vision task to segment potholes in images.
 
 # Setup
 
