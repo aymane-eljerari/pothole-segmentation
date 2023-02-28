@@ -1,5 +1,5 @@
 # pothole-segmentation
-Training a computer vision task to segment potholes in images.
+Training a computer vision task to segment potholes in images. This model was trained on the [pothole-600](https://sites.google.com/view/pothole-600/dataset) dataset.
 
 # Setup
 
