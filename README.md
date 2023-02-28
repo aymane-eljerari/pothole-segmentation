@@ -1,6 +1,12 @@
 # pothole-detection
 Training a computer vision task to detect and segment potholes in images. This model was trained on the [pothole-600](https://sites.google.com/view/pothole-600/dataset) dataset.
 
+# Datasets Used
+- [Nienaber 1](https://www.kaggle.com/datasets/felipemuller5/nienaber-potholes-1-simplex)
+- [Nienaber 2](https://www.kaggle.com/datasets/felipemuller5/nienaber-potholes-2-complex)
+- [Road Damage Detection](https://github.com/sekilab/RoadDamageDetector/)
+- [Brazilian NDTI](https://github.com/biankatpas/Cracks-and-Potholes-in-Road-Images-Dataset)
+
 # Setup
 
 Create and Activate Virtual Environment
